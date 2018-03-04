@@ -39,7 +39,6 @@ def concat():
             return send_file(strIO, mimetype='image/png')
         except Exception as err:
             if err:
-                flash('File not supported')
                 return redirect('/')
 
 
