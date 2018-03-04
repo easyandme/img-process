@@ -2,8 +2,23 @@
 
 {% block content %}
   <main class="hero-section">
+    <div class="container">
+      <div class="section-content">
+
     <div>
         <img src="static/img/1.tif" alt="cell">
+    </div>
+        <h2>See a concatenated image.</h2>
+        <p class="warning">* Please upload a <b>square</b> image</p>
+        <form action="concat" method="post" enctype="multipart/form-data">
+          <input type="file" name="image" accept='image/*'><br>
+          <input class="btn btn-success" type="submit" value="Concat">
+          <br>
+          <br>
+          <a class="btn btn-info" href="{{ url_for('about') }}" class="btn-secondary">About</a>
+        </form>
+
+      </div>
     </div>
   </main>
 {% endblock %}

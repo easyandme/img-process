@@ -44,7 +44,8 @@ a {
 .section-content {
   color: #3a3a3a;
   float: left;
-  width: 340px;
+  width: 50%;
+  min-width: 360px;
 }
 
 .section-device {
@@ -285,4 +286,8 @@ header {
 
 .leaflet-popup-content p {
   margin: 10px 0 ;
+}
+
+p.warning, span.warning {
+color: brown
 }
