@@ -22,7 +22,6 @@ def concat():
     imagefile = Image.open('static/img/1.tif')
   else:
     imagefile = Image.open(request.files['image'])
-  try:
     arr = np.asarray(imagefile)
     for i in range(3):
       arr = np.concatenate((arr, np.rot90(imagefile, i + 1)), axis=1)
@@ -31,10 +30,6 @@ def concat():
     imsave(strIO, arr, plugin='pil', format_str='png')
     strIO.seek(0)
     return send_file(strIO, mimetype='image/png')
-  except Exception as err:
-    if err:
-      flash('File not supported')
-      return render_template('warning.html')
 
 if __name__ == "__main__":
   app.secret_key = 'key'
