@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, send_file, flash
-from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
@@ -16,7 +15,7 @@ def about():
 
 @app.route('/concat', methods=['GET', 'POST'])
 def concat():
-    import StringIO
+    from io import BytesIO
     import numpy as np
     from PIL import Image
     from skimage.io import imsave
@@ -30,7 +29,7 @@ def concat():
             for i in range(3):
                 arr = np.concatenate((arr, np.rot90(imagefile, i + 1)), axis=1)
 
-            strIO = StringIO.StringIO()
+            strIO = BytesIO()
             imsave(strIO, arr, plugin='pil', format_str='png')
             strIO.seek(0)
             return send_file(strIO, mimetype='image/png')
