@@ -1,5 +1,6 @@
 import sys
 from flask import Flask, render_template, request, send_file, flash, logging
+from werkzeug.utils import redirect
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -39,7 +40,7 @@ def concat():
         except Exception as err:
             if err:
                 flash('File not supported')
-                return render_template('warning.html')
+                return redirect('/')
 
 
 if __name__ == "__main__":
