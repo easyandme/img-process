@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Define the image name
-inputimage = '1.tif'
+inputimage = 'static/img/1.tif'
 # Load the imagef
 img = Image.open(inputimage)
 
