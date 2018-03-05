@@ -13,7 +13,6 @@ from keras.layers import Activation, BatchNormalization, Dropout
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
 from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
-import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
