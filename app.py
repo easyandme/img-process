@@ -1,6 +1,8 @@
 import base64
 import sys
 import urllib
+
+import os
 from flask import Flask, render_template, request, send_file, logging
 from io import BytesIO
 import numpy as np
@@ -137,4 +139,5 @@ class AEmodel():
 
 if __name__ == "__main__":
     app.secret_key = 'key'
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
