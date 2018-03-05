@@ -32,7 +32,6 @@ def about():
 
 @app.route('/process', methods=['GET', 'POST'])
 def process():
-
     if request.method == 'POST':
         if 'image' not in request.files:
             img = Image.open('static/img/1.tif')
