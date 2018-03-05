@@ -10,10 +10,10 @@
     </div>
       <br>
     <h2>Uoload cell image(s) for us to process.</h2>
-    <p class="warning">* Please upload a <b>square</b> image</p>
+    <p class="warning">* Please upload <b>square</b> image(s)</p>
     <form action="render" method="post" enctype="multipart/form-data">
-          <input type="file" name="image" accept='image/*' multiple>
-          <input class="btn btn-success" type="submit" value="Process">
+          <input type="file" id="file" name="image" accept='image/*' multiple>
+          <input class="btn btn-success" id="process" type="submit" value="Process">
     </form>
 
     <a class="btn btn-info" href="{{ url_for('about') }}" class="btn-secondary">About</a>
