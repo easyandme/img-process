@@ -1,13 +1,19 @@
-
+import base64
 import sys
+import urllib
 
 import os
 from flask import Flask, render_template, request, send_file, logging
+from io import BytesIO
+import numpy as np
+from PIL import Image
+from skimage.io import imsave
 from keras.models import Model
 from keras.layers import Activation, BatchNormalization, Dropout
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
 from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
