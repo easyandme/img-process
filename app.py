@@ -1,16 +1,14 @@
 import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
 import sys
-import urllib
-
 import os
 from flask import Flask, render_template, request, send_file, logging
 from io import BytesIO
 import numpy as np
 from PIL import Image
-from skimage.io import imsave
 from keras.models import Model
 from keras.layers import Activation, BatchNormalization, Dropout
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
@@ -34,47 +32,58 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/process', methods=['GET', 'POST'])
-def process():
+@app.route('/render', methods=['GET', 'POST'])
+def render():
     if request.method == 'POST':
-        if 'image' not in request.files:
-            img = Image.open('static/img/1.tif')
+        if 'image' in request.files:
+            img_list = request.files.getlist('image')
+            try:
+                plot_list = []
+                for image in img_list:
+                    img = Image.open(image)
+                    plot_url = feature_extract(img)
+                    plot_list.append(plot_url)
+                return render_template('result.html', png_urls=plot_list)
+            except Exception as err:
+                if err:
+                    return render_template('warning.html')
         else:
-            img = Image.open(request.files['image'])
-        try:
-            width, height = img.size
-            if width != 190 or height != 190:
-                img.thumbnail((190, 190), Image.ANTIALIAS)
-            img = np.asarray(img, dtype=np.float32).reshape(-1, 190, 190, 1)
-            img -= np.mean(img)
+            return render_template('warning.html')
 
-            model = AEmodel()
-            autoencoder = model.encoder()
-            # Load weights
-            autoencoder.load_weights('ACbin_33x128fl128GA_weights.h5')
-            batch_size = 20
-            # Extract output
-            intermediate_layer_model = Model(inputs=autoencoder.input,
-                                             outputs=autoencoder.get_layer('globalAve').output)
 
-            intermediate_layer_model.compile('sgd', 'mse')
-            # Output the latent layer
-            intermediate_output = intermediate_layer_model.predict(
-                img, batch_size=batch_size, verbose=1)
+def feature_extract(img):
+    width, height = img.size
+    if width != 190 or height != 190:
+        img.thumbnail((190, 190), Image.ANTIALIAS)
+    img = np.asarray(img, dtype=np.float32).reshape(-1, 190, 190, 1)
+    img -= np.mean(img)
 
-            # Plot features
-            plt.figure()
-            plt.xlabel('Feature')
-            plt.ylabel('Intensity (a.u.)')
-            plt.bar(np.arange(len(intermediate_output[0])), intermediate_output[0, :])
+    aemodel = AEmodel()
+    autoencoder = aemodel.encoder()
+    # Load weights
+    autoencoder.load_weights('ACbin_33x128fl128GA_weights.h5')
+    batch_size = 20
+    # Extract output
+    intermediate_layer_model = Model(inputs=autoencoder.input,
+                                     outputs=autoencoder.get_layer('globalAve').output)
 
-            strIO = BytesIO()
-            plt.savefig(strIO)
-            strIO.seek(0)
-            return send_file(strIO, mimetype='image/png')
-        except Exception as err:
-            if err:
-                return render_template('warning.html')
+    intermediate_layer_model.compile('sgd', 'mse')
+    # Output the latent layer
+    intermediate_output = intermediate_layer_model.predict(
+        img, batch_size=batch_size, verbose=1)
+
+    # Plot features
+    plt.figure()
+    plt.xlabel('Feature')
+    plt.ylabel('Intensity (a.u.)')
+    plt.bar(np.arange(len(intermediate_output[0])), intermediate_output[0, :])
+
+    # Encode, decode and output
+    png = BytesIO()
+    plt.savefig(png, format='png')
+    png.seek(0)
+    plot_url = base64.b64encode(png.getvalue()).decode()
+    return plot_url
 
 
 class AEmodel():
