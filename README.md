@@ -1,5 +1,5 @@
-# Image Concat App
+# Image Process App
 
-This is a Heroku App that concatenates square images using Numpy and Python Image Library.
+This is a Heroku App that process cell images using TensorFlow API.
 
 Visit [Demo](https://image-concat.herokuapp.com/)
