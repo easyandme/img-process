@@ -1,5 +1,4 @@
 import matplotlib
-
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
@@ -18,7 +17,6 @@ from keras.layers import GlobalAveragePooling2D
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
-
 
 
 
@@ -58,8 +56,7 @@ def feature_extract(img):
     img = np.asarray(img, dtype=np.float32).reshape(-1, 190, 190, 1)
     img -= np.mean(img)
 
-    aemodel = AEmodel()
-    autoencoder = aemodel.encoder()
+    autoencoder = ae_encoder()
     # Load weights
     autoencoder.load_weights('ACbin_33x128fl128GA_weights.h5')
     batch_size = 20
@@ -86,8 +83,7 @@ def feature_extract(img):
     return plot_url
 
 
-class AEmodel():
-    def encoder(self):
+def ae_encoder():
         input_img = Input(shape=(190, 190, 1), name='input_layer')
         x = Conv2D(128, (3, 3), padding='same', name='block1_conv2')(input_img)
         x = BatchNormalization(name='block1_BN')(x)
