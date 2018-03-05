@@ -37,7 +37,44 @@ def about():
 @app.route('/process', methods=['GET', 'POST'])
 def process():
     if request.method == 'POST':
-        return render_template('warning.html')
+        if 'image' not in request.files:
+            img = Image.open('static/img/1.tif')
+        else:
+            img = Image.open(request.files['image'])
+        try:
+            width, height = img.size
+            if width != 190 or height != 190:
+                img.thumbnail((190, 190), Image.ANTIALIAS)
+            img = np.asarray(img, dtype=np.float32).reshape(-1, 190, 190, 1)
+            img -= np.mean(img)
+
+            model = AEmodel()
+            autoencoder = model.encoder()
+            # Load weights
+            autoencoder.load_weights('ACbin_33x128fl128GA_weights.h5')
+            batch_size = 20
+            # Extract output
+            intermediate_layer_model = Model(inputs=autoencoder.input,
+                                             outputs=autoencoder.get_layer('globalAve').output)
+
+            intermediate_layer_model.compile('sgd', 'mse')
+            # Output the latent layer
+            intermediate_output = intermediate_layer_model.predict(
+                img, batch_size=batch_size, verbose=1)
+
+            # Plot features
+            plt.figure()
+            plt.xlabel('Feature')
+            plt.ylabel('Intensity (a.u.)')
+            plt.bar(np.arange(len(intermediate_output[0])), intermediate_output[0, :])
+
+            strIO = BytesIO()
+            plt.savefig(strIO)
+            strIO.seek(0)
+            return send_file(strIO, mimetype='image/png')
+        except Exception as err:
+            if err:
+                return render_template('warning.html')
 
 
 class AEmodel():
