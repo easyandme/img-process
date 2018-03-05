@@ -44,7 +44,7 @@ a {
 .section-content {
   color: #3a3a3a;
   float: left;
-  width: 50%;
+  width: 80%;
   min-width: 360px;
 }
 
@@ -290,4 +290,14 @@ header {
 
 p.warning, span.warning {
 color: brown
+}
+
+form input {
+  margin-bottom: 1.25em;
+  display: block;
+}
+
+.result-figure {
+  width: 42%;
+  margin: 10px;
 }
