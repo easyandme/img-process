@@ -5,6 +5,7 @@ import base64
 import sys
 import os
 from flask import Flask, render_template, request, send_file, logging
+from werkzeug.utils import secure_filename
 from io import BytesIO
 import numpy as np
 from PIL import Image
@@ -19,6 +20,7 @@ from sklearn.manifold import TSNE
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
+app.config['UPLOAD_PATH'] = './static/uploads'
 
 
 
@@ -32,19 +34,37 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/render', methods=['GET', 'POST'])
-def render():
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    app.logger.info('new request: uploading...')
     if request.method == 'POST':
         if 'image' in request.files:
             img_list = request.files.getlist('image')
-            try:
-                plot_url = feature_extract_TSNE(img_list)
-                return render_template('result.html', png_url=plot_url)
-            except Exception as err:
-                if err:
-                    return render_template('warning.html')
+            for f in img_list:
+                name = secure_filename(f.filename)
+                f.save(os.path.join(app.config['UPLOAD_PATH'],  name))
+            return render_template('upload.html')
         else:
             return render_template('warning.html')
+
+
+@app.route('/render')
+def render():
+    img_list = []
+    filenames = os.listdir(app.config['UPLOAD_PATH'])
+    for filename in filenames:
+        img_list.append(os.path.join(app.config['UPLOAD_PATH'], filename))
+    plot_url = feature_extract_TSNE(img_list)
+    # Delete temp files on server
+    for the_file in os.listdir(app.config['UPLOAD_PATH']):
+        file_path = os.path.join(app.config['UPLOAD_PATH'], the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            # elif os.path.isdir(file_path): shutil.rmtree(file_path)
+        except Exception as e:
+            print(e)
+    return render_template('result.html', png_url=plot_url)
 
 
 def feature_extract_TSNE(img_list):
