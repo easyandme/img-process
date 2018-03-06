@@ -58,7 +58,7 @@ def feature_extract(img):
 
     autoencoder = ae_encoder()
     # Load weights
-    autoencoder.load_weights('ACbin_33x128fl128GA_weights.h5')
+    autoencoder.load_weights('h5/ACbin_33x128fl128GA_weights.h5')
     batch_size = 20
     # Extract output
     intermediate_layer_model = Model(inputs=autoencoder.input,
