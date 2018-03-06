@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 app.config['UPLOAD_PATH'] = './static/uploads'
-
+_dir = os.path.dirname(__file__)
 
 
 @app.route("/")
@@ -42,7 +42,7 @@ def upload():
             img_list = request.files.getlist('image')
             for f in img_list:
                 name = secure_filename(f.filename)
-                f.save(os.path.join(app.config['UPLOAD_PATH'],  name))
+                f.save(os.path.join(_dir + '/' + app.config['UPLOAD_PATH'],  name))
             return render_template('upload.html')
         else:
             return render_template('warning.html')
@@ -53,11 +53,11 @@ def render():
     img_list = []
     filenames = os.listdir(app.config['UPLOAD_PATH'])
     for filename in filenames:
-        img_list.append(os.path.join(app.config['UPLOAD_PATH'], filename))
+        img_list.append(os.path.join(_dir + '/' + app.config['UPLOAD_PATH'], filename))
     plot_url = feature_extract_TSNE(img_list)
     # Delete temp files on server
-    for the_file in os.listdir(app.config['UPLOAD_PATH']):
-        file_path = os.path.join(app.config['UPLOAD_PATH'], the_file)
+    for the_file in os.listdir(_dir + '/' + app.config['UPLOAD_PATH']):
+        file_path = os.path.join(_dir + '/' + app.config['UPLOAD_PATH'], the_file)
         try:
             if os.path.isfile(file_path):
                 os.unlink(file_path)
