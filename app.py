@@ -13,6 +13,8 @@ from keras.layers import Activation, BatchNormalization, Dropout
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
 from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
+import pandas
+from sklearn.manifold import TSNE
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -36,12 +38,8 @@ def render():
         if 'image' in request.files:
             img_list = request.files.getlist('image')
             try:
-                plot_list = []
-                for image in img_list:
-                    img = Image.open(image)
-                    plot_url = feature_extract(img)
-                    plot_list.append(plot_url)
-                return render_template('result.html', png_urls=plot_list)
+                plot_url = feature_extract_TSNE(img_list)
+                return render_template('result.html', png_url=plot_url)
             except Exception as err:
                 if err:
                     return render_template('warning.html')
@@ -49,12 +47,17 @@ def render():
             return render_template('warning.html')
 
 
-def feature_extract(img):
-    width, height = img.size
-    if width != 190 or height != 190:
-        img.thumbnail((190, 190), Image.ANTIALIAS)
-    img = np.asarray(img, dtype=np.float32).reshape(-1, 190, 190, 1)
-    img -= np.mean(img)
+def feature_extract_TSNE(img_list):
+    imgs = []
+    for image in img_list:
+        img = Image.open(image)
+        width, height = img.size
+        if width != 190 or height != 190:
+            img.thumbnail((190, 190), Image.ANTIALIAS)
+        img = np.asarray(img, dtype=np.float32).reshape(190, 190, 1)
+        img -= np.mean(img)
+        imgs.append(img)
+    imgs = np.asarray(imgs)
 
     autoencoder = ae_encoder()
     # Load weights
@@ -67,13 +70,28 @@ def feature_extract(img):
     intermediate_layer_model.compile('sgd', 'mse')
     # Output the latent layer
     intermediate_output = intermediate_layer_model.predict(
-        img, batch_size=batch_size, verbose=1)
+        imgs, batch_size=batch_size, verbose=1)
+
+    # TSNE
+    Y0 = TSNE(n_components=2, init='random', random_state=0, perplexity=30,
+              verbose=1).fit_transform(intermediate_output.reshape(intermediate_output.shape[0], -1))
+    # layer_output_label = np.argmax(test_label0, axis=1)
+    layer_output_label = np.zeros((len(Y0)))
+    df = pandas.DataFrame(dict(x=Y0[:, 0], y=Y0[:, 1], label=layer_output_label))
+    labels = ['your cell']
+    groups = df.groupby('label')
+    # Plot grouped scatter
+    fig, ax = plt.subplots()
+    ax.margins(0.05)  # Optional, just adds 5% padding to the autoscaling
+    i = 0
+    for name, group in groups:
+        name = labels[i]
+        ax.plot(group.x, group.y, marker='o', linestyle='', ms=2, label=name, alpha=0.5)
+        i += 1
 
     # Plot features
-    plt.figure()
-    plt.xlabel('Feature')
-    plt.ylabel('Intensity (a.u.)')
-    plt.bar(np.arange(len(intermediate_output[0])), intermediate_output[0, :])
+    plt.title('tSNE plot')
+    ax.legend()
 
     # Encode, decode and output
     png = BytesIO()
