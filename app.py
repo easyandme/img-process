@@ -20,7 +20,7 @@ from sklearn.manifold import TSNE
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
-app.config['UPLOAD_PATH'] = '/tmp'
+app.config['UPLOAD_PATH'] = 'tmp'
 
 
 @app.route("/")
