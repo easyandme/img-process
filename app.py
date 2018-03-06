@@ -50,7 +50,7 @@ def upload():
 @app.route('/render')
 def render():
     img_list = []
-    filenames = os.listdir(app.config['UPLOAD_PATH'])
+    filenames = [f for f in os.listdir(app.config['UPLOAD_PATH']) if os.path.isfile(os.path.join(app.config['UPLOAD_PATH'], f))]
     print(filenames)
     for filename in filenames:
         img_list.append(os.path.join(app.config['UPLOAD_PATH'], filename))
