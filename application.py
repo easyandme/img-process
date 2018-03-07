@@ -10,39 +10,39 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from keras.models import Model
-from keras.layers import Activation, BatchNormalization, Dropout
+from keras.layers import Activation, BatchNormalization, Dropout, K
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
 from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
 import pandas
 from sklearn.manifold import TSNE
 
-app = Flask(__name__)
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
-app.config['UPLOAD_PATH'] = 'tmp'
+application = Flask(__name__)
+application.logger.addHandler(logging.StreamHandler(sys.stdout))
+application.logger.setLevel(logging.ERROR)
 
 
-@app.route("/")
+@application.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route("/about")
+@application.route("/about")
 def about():
     return render_template("about.html")
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    app.logger.info('new request: uploading...')
+@application.route('/render', methods=['GET', 'POST'])
+def render():
     if request.method == 'POST':
         if 'image' in request.files:
             img_list = request.files.getlist('image')
-            for f in img_list:
-                name = secure_filename(f.filename)
-                f.save(os.path.join(app.config['UPLOAD_PATH'],  name))
-            return render_template('upload.html')
+            try:
+                plot_url = feature_extract_TSNE(img_list)
+                return render_template('result.html', png_url=plot_url)
+            except Exception as err:
+                if err:
+                    return render_template('warning.html', err=err)
         else:
             return render_template('warning.html')
 
@@ -79,18 +79,22 @@ def feature_extract_TSNE(img_list):
         imgs.append(img)
     imgs = np.asarray(imgs)
 
+
     autoencoder = ae_encoder()
     # Load weights
     autoencoder.load_weights('h5/ACbin_33x128fl128GA_weights.h5')
     batch_size = 20
     # Extract output
-    intermediate_layer_model = Model(inputs=autoencoder.input,
+    with K.get_session().graph.as_default():
+        intermediate_layer_model = Model(inputs=autoencoder.input,
                                      outputs=autoencoder.get_layer('globalAve').output)
 
     intermediate_layer_model.compile('sgd', 'mse')
     # Output the latent layer
     intermediate_output = intermediate_layer_model.predict(
         imgs, batch_size=batch_size, verbose=1)
+
+    K.clear_session()
 
     # TSNE
     Y0 = TSNE(n_components=2, init='random', random_state=0, perplexity=30,
@@ -183,6 +187,6 @@ def ae_encoder():
 
 
 if __name__ == "__main__":
-    app.secret_key = 'key'
+    application.secret_key = 'key'
     port = int(os.environ.get("PORT", 5000))
-    app.run(port=port, debug=True)
+    application.run(port=port, debug=False)
