@@ -42,7 +42,7 @@ def render():
                 return render_template('result.html', png_url=plot_url)
             except Exception as err:
                 if err:
-                    return render_template('warning.html')
+                    return render_template('warning.html', err=err)
         else:
             return render_template('warning.html')
 
