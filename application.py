@@ -9,7 +9,7 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from keras.models import Model
-from keras.layers import Activation, BatchNormalization, Dropout
+from keras.layers import Activation, BatchNormalization, Dropout, K
 from keras.layers import Conv2D, MaxPooling2D, Input, UpSampling2D
 from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
@@ -59,12 +59,14 @@ def feature_extract_TSNE(img_list):
         imgs.append(img)
     imgs = np.asarray(imgs)
 
+
     autoencoder = ae_encoder()
     # Load weights
     autoencoder.load_weights('h5/ACbin_33x128fl128GA_weights.h5')
     batch_size = 20
     # Extract output
-    intermediate_layer_model = Model(inputs=autoencoder.input,
+    with K.get_session().graph.as_default():
+        intermediate_layer_model = Model(inputs=autoencoder.input,
                                      outputs=autoencoder.get_layer('globalAve').output)
 
     intermediate_layer_model.compile('sgd', 'mse')
