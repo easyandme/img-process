@@ -16,23 +16,23 @@ from keras.layers import GlobalAveragePooling2D
 import pandas
 from sklearn.manifold import TSNE
 
-app = Flask(__name__)
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+application = Flask(__name__)
+application.logger.addHandler(logging.StreamHandler(sys.stdout))
+application.logger.setLevel(logging.ERROR)
 
 
 
-@app.route("/")
+@application.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route("/about")
+@application.route("/about")
 def about():
     return render_template("about.html")
 
 
-@app.route('/render', methods=['GET', 'POST'])
+@application.route('/render', methods=['GET', 'POST'])
 def render():
     if request.method == 'POST':
         if 'image' in request.files:
@@ -163,6 +163,6 @@ def ae_encoder():
 
 
 if __name__ == "__main__":
-    app.secret_key = 'key'
+    application.secret_key = 'key'
     port = int(os.environ.get("PORT", 5000))
-    app.run(port=port, debug=True)
+    application.run(port=port, debug=True)
