@@ -7,6 +7,11 @@
     <h2 >The file you just uploaded was not a <span class="warning"><u>square image</u></span> or not supported.</h2>
         <br>
      <a href="/"> <button class="btn btn-default">Return</button></a>
+        <br>
+        {% if err %}
+            <pre>{{ err }}</pre>
+        {% endif %}
+        <pre>ephemeral</pre>
     </div>
   </main>
 {% endblock %}
