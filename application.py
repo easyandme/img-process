@@ -74,6 +74,8 @@ def feature_extract_TSNE(img_list):
     intermediate_output = intermediate_layer_model.predict(
         imgs, batch_size=batch_size, verbose=1)
 
+    K.clear_session()
+
     # TSNE
     Y0 = TSNE(n_components=2, init='random', random_state=0, perplexity=30,
               verbose=1).fit_transform(intermediate_output.reshape(intermediate_output.shape[0], -1))
