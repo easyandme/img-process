@@ -8,10 +8,15 @@
         <br>
      <a href="/"> <button class="btn btn-default">Return</button></a>
         <br>
+        <br>
+
         {% if err %}
+        <div>
+            <h5>Error message (for label free dev only): </h5>
             <pre>{{ err }}</pre>
+        </div>
+
         {% endif %}
-        <pre>ephemeral</pre>
     </div>
   </main>
 {% endblock %}

@@ -4,19 +4,47 @@
   <main class="hero-section">
     <div class="container">
       <div class="section-content">
-
-    <div>
-        <img src="static/img/1.tif" alt="cell">
+    <div class="cell-image-default">
+        <img src="{{ url_for('static', filename='img/1.jpg') }}" alt="cell">
+        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="cell">
+        <img src="{{ url_for('static', filename='img/3.jpg') }}" alt="cell">
     </div>
-      <br>
-    <h2>Uoload cell image(s) for us to process.</h2>
-    <p class="warning">* Please upload <b>square</b> image(s)</p>
-    <form action="render" method="post" enctype="multipart/form-data">
-          <input type="file" id="file" name="image" accept='image/*' multiple>
-          <input class="btn btn-success" id="process" type="submit" value="Process">
-    </form>
+    <h4>Upload cell images for us to process.</h4>
 
-    <a class="btn btn-info" href="{{ url_for('about') }}" class="btn-secondary">About</a>
+          <div class="input-field label-num">
+              <select id="label_num">
+                  <option value="" disabled selected>Choose number of labels</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+              </select>
+              <label>Choose number of labels </label>
+          </div>
+
+          <div id="form-container"></div>
+
+          <div class="preloader-wrapper small hidden">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+    <!--<form action="render" method="post" enctype="multipart/form-data">-->
+          <!--&lt;!&ndash;<input type="file" id="file" name="image" accept='image/*' multiple>&ndash;&gt;-->
+          <!--&lt;!&ndash;<input class="btn btn-success" id="process" type="submit" value="Process">&ndash;&gt;-->
+    <!--</form>-->
+
+    <p class="warning">* Please upload <b>square</b> images</p>
 
       </div>
     </div>
