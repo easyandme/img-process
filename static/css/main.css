@@ -2,6 +2,12 @@
  * General
  */
 
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+     box-sizing: border-box;
+}
+
 html, body, h1 {
   margin: 0;
   padding: 0;
@@ -92,9 +98,8 @@ a {
  * Header
  */
 
-header {
-  background-color: #fff;
-  padding: 25px 0;
+nav {
+  background-color: grey;
 }
 
 .title {
@@ -138,7 +143,7 @@ header {
 
 .hero-section .section-content {
   position: relative;
-  top: 100px;
+  top: 20px;
 }
 
 .hero-section .section-content h2 {
@@ -293,12 +298,39 @@ p.warning, span.warning {
 color: brown
 }
 
-form input {
-  margin-bottom: 1.25em;
-  display: block;
-}
 
 .result-figure {
   width: 42%;
   margin: 10px;
+}
+
+div.cell-image-default img {
+width: 120px;
+}
+
+div.label-num {
+  width: 40%;
+  min-width: 100px;
+  margin-top: 30px;
+}
+
+input#process {
+  margin-top: 16px;
+}
+
+span.beta {
+  font-size: 50%;
+  color: #d5f170;
+  vertical-align: top;
+}
+
+.preloader-wrapper {
+  margin-top:20px;
+}
+.preloader-wrapper.hidden, .progress.hidden {
+  display:none;!important
+}
+
+nav .inner-nav {
+  padding: 0 20px;
 }
