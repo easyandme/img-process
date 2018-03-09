@@ -334,3 +334,8 @@ span.beta {
 nav .inner-nav {
   padding: 0 20px;
 }
+
+div#form-container{
+    width: 60%;
+    min-width: 280px;
+}
