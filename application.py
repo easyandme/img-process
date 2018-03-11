@@ -65,22 +65,12 @@ def render():
             try:
                 print(len(label_values))
                 plot_url = feature_extract_TSNE(label_values, all_img_list)
-                # thr = Thread(target=feature_extract_TSNE, args=[label_values, all_img_list])
-                # thr.start()
-                # plot_url = "asd"
                 return render_template('result.html', png_url=plot_url)
             except Exception as err:
                 if err:
                     return render_template('warning.html', err=err)
         else:
             return render_template('warning.html')
-
-def slow_function(some_object):
-    sleep(5)
-    print(some_object)
-    with application.app_context():
-        return render_template("index.html")
-
 
 
 def feature_extract_TSNE(labels, all_img_list):
