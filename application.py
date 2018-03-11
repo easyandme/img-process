@@ -16,6 +16,19 @@ from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
 import pandas
 from sklearn.manifold import TSNE
+# from threading import Thread
+# from time import sleep
+import tensorflow as tf
+
+
+with tf.device('/gpu:0'):
+    a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+    b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+    c = tf.matmul(a, b)
+
+with tf.Session() as sess:
+    print (sess.run(c))
+
 
 application = Flask(__name__)
 application.logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -52,12 +65,22 @@ def render():
             try:
                 print(len(label_values))
                 plot_url = feature_extract_TSNE(label_values, all_img_list)
+                # thr = Thread(target=feature_extract_TSNE, args=[label_values, all_img_list])
+                # thr.start()
+                # plot_url = "asd"
                 return render_template('result.html', png_url=plot_url)
             except Exception as err:
                 if err:
                     return render_template('warning.html', err=err)
         else:
             return render_template('warning.html')
+
+def slow_function(some_object):
+    sleep(5)
+    print(some_object)
+    with application.app_context():
+        return render_template("index.html")
+
 
 
 def feature_extract_TSNE(labels, all_img_list):
@@ -184,6 +207,7 @@ def ae_encoder():
     x = Dropout(0.25)(x)
     decoded = Conv2D(1, (3, 3), name='decoder_output')(x)
     autoencoder = Model(inputs=input_img, outputs=[class_output, decoded])
+    print(autoencoder)
     return autoencoder
 
 
