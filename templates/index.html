@@ -2,13 +2,28 @@
 
 {% block content %}
   <main class="hero-section">
-    <div class="container">
-      <div class="section-content">
-    <div class="cell-image-default">
-        <img src="{{ url_for('static', filename='img/1.jpg') }}" alt="cell">
-        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="cell">
-        <img src="{{ url_for('static', filename='img/3.jpg') }}" alt="cell">
+
+
+    <div class="sample startup" style="background-image: url({{ url_for('static', filename='img/startup.jpg') }})">
+        <div class="tc">
+
+            <div class="sample-text-container">
+                <div class="sample-text">
+                    <h1>Analytics on cells.</h1>
+                    <p>Stop installing bloated scripts or applications that's hard to use. We process cell images for you to analyze.</p>
+                    <button class="btn red lighten-2" id="run_sample"><i class="material-icons left">done</i>Run Our Sample</button>
+                    <button class="btn" id="upload_btn"><i class="material-icons left">cloud_upload</i>Upload</button>
+                </div>
+                <div class="sample-result hidden">
+                    <!---->
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="container">
+
+      <div class="section-content custom-upload">
+
     <h4>Upload cell images for us to process.</h4>
 
           <div class="input-field label-num">

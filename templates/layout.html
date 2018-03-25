@@ -6,14 +6,19 @@
   <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, no-store, must-revalidate">
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </head>
   <body>
+
+            <div class="progress hidden">
+              <div class="indeterminate"></div>
+            </div>
     <header>
       <nav>
         <div class="nav-wrapper">
@@ -24,9 +29,6 @@
                     <a class="btn" href="{{ url_for('about') }}">About</a>
                 </li>
               </ul>
-            </div>
-            <div class="progress hidden">
-              <div class="indeterminate"></div>
             </div>
         </div>
       </nav>

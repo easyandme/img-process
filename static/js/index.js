@@ -13,6 +13,24 @@ $(document).ready(function() {
         $('.progress').removeClass('hidden');
     });
 
+    $('#run_sample').click(function() {
+
+        $('.progress').removeClass('hidden');
+        setTimeout(function(){
+            $('.progress').addClass('hidden');
+            $('.sample-result').prepend('<img src="./static/img/sample_result.jpg" alt="Sample Result" width="100%">');
+            $('.sample-result').removeClass('hidden').addClass('animated zoomIn');
+        }, 3000)
+
+        $(this).prop("disabled",true);
+    });
+
+    $('#upload_btn').click(function() {
+        $('html, body').animate({
+            scrollTop: $(".custom-upload").offset().top
+        }, 600);
+    });
+
 
 
 function createForm(numOfLabels) {
