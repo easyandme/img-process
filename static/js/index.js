@@ -1,5 +1,27 @@
 $(document).ready(function() {
+
+    setTimeout( function(){
+                if($('.sample-text').length) {
+                    $('.sample-text h2 span').typed({
+                        strings: ["", "with GPU-accelerated TensorFlow."],
+                        typeSpeed: 50,
+                        backSpeed: 20,
+                        backDelay: 500,
+                        loop: false,
+                        contentType: 'html', // or text
+                        // defaults to false for infinite loop
+                        loopCount: false
+                    });
+                }
+
+            }, 2500);
+
+
+
+
+
     $('select').material_select();
+
 
 
     $('select').change(function() {
@@ -14,13 +36,15 @@ $(document).ready(function() {
     });
 
     $('#run_sample').click(function() {
-
+        $('.undrugged-container, .drugged-container, .microscope').fadeOut();
+        $('.gps_ring').delay(500).fadeIn();
         $('.progress').removeClass('hidden');
         setTimeout(function(){
             $('.progress').addClass('hidden');
-            $('.sample-result').prepend('<img src="./static/img/sample_result.jpg" alt="Sample Result" width="100%">');
+            $('.gps_ring').hide();
+            $('.sample-result').prepend('<figure style="width:100%"><img src="./static/img/sample_result.jpg" alt="Sample Result" width="100%"><figcaption>The difference of cellular drug response are demonstrated on the scatter plot.</figcaption></figure>');
             $('.sample-result').removeClass('hidden').addClass('animated zoomIn');
-        }, 3000)
+        }, 5000)
 
         $(this).prop("disabled",true);
     });

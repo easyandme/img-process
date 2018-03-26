@@ -7,15 +7,62 @@
     <div class="sample startup" style="background-image: url({{ url_for('static', filename='img/startup.jpg') }})">
         <div class="tc">
 
-            <div class="sample-text-container">
+            <div class="sample-text-container e">
                 <div class="sample-text">
-                    <h1>Analytics on cells.</h1>
-                    <p>Stop installing bloated scripts or applications that's hard to use. We process cell images for you to analyze.</p>
+                    <h1>Analytics on cells</h1>
+                    <h2><span class="sample-type">no Staining or Labeling needed.</span></h2>
+                    <p>Stop installing bloated applications that's hard to use. We process cell images for you to analyze.</p>
                     <button class="btn red lighten-2" id="run_sample"><i class="material-icons left">done</i>Run Our Sample</button>
-                    <button class="btn" id="upload_btn"><i class="material-icons left">cloud_upload</i>Upload</button>
+                    <button class="btn" id="upload_btn"><i class="material-icons left">cloud_upload</i>Upload Your Data</button>
                 </div>
-                <div class="sample-result hidden">
-                    <!---->
+                <div class="sample-result">
+
+                    <div class="gps_ring" hidden></div>
+                    <div class="undrugged-container">
+                        <h5>Normal culture</h5>
+                        <figure>
+                            <img alt="0nm" src="{{ url_for('static', filename='img/0nm.png') }}" />
+                            <figcaption>0nm</figcaption>
+                        </figure>
+                        <i class="material-icons center">add</i>
+                    </div>
+
+                    <div class="drugged-container">
+                            <h5>Drug treated for ~24h</h5>
+                            <div class="line" style="background-image: url({{ url_for('static', filename='img/line1.png')}})">
+
+                            <figure class="drugged">
+                                <img alt="1nm" src="{{ url_for('static', filename='img/1nm.png') }}" />
+                                <figcaption>1nm</figcaption>
+                            </figure>
+                            <figure class="drugged">
+                                <img alt="10nm" src="{{ url_for('static', filename='img/10nm.png') }}" />
+                                <figcaption>10nm</figcaption>
+                            </figure>
+                            <figure class="drugged">
+                                <img alt="100nm" src="{{ url_for('static', filename='img/100nm.png') }}" />
+                                <figcaption>100nm</figcaption>
+                            </figure>
+                            <figure class="drugged">
+                                 <img alt="1µm" src="{{ url_for('static', filename='img/1um.png') }}" />
+                                <figcaption>1µm</figcaption>
+                            </figure>
+                            <figure class="drugged">
+                                <img alt="10µm" src="{{ url_for('static', filename='img/10um.png') }}" />
+                                <figcaption>10µm</figcaption>
+                            </figure>
+                            </div>
+                           <i class="material-icons center">arrow_downward</i>
+                    </div>
+                    <div class="microscope">
+                            <figure class="microscope-img">
+                                <img src="{{ url_for('static', filename='img/microscope.png')}}" alt="microscope">
+                            </figure>
+                            <div class="micro-text">
+                                <h5>Taking pictures</h5>
+                                <p>* No staining/labeling needed!</p>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>

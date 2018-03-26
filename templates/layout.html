@@ -12,6 +12,7 @@
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename='js/typed.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </head>
   <body>
@@ -21,9 +22,9 @@
             </div>
     <header>
       <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper e">
             <div class="inner-nav">
-              <a href="/" class="brand-logo">Feature Extraction <span class="beta">beta</span></a>
+              <a href="/" class="brand-logo">LabelFree Image Analyzer <span class="beta">beta</span></a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
                     <a class="btn" href="{{ url_for('about') }}">About</a>

@@ -14,8 +14,8 @@ html, body, h1 {
 }
 
 body {
-  background-color: #e5d2ef;
-  font-family: 'Open Sans', sans-serif;
+  background-color: #fff2ec;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
 h2 {
@@ -353,7 +353,14 @@ span.beta {
 
 
 nav .inner-nav {
-  padding: 0 20px;
+  padding: 0 0;
+}
+nav .inner-nav li a.btn {
+  background-color: transparent;
+  box-shadow: none;
+}
+nav .nav-wrapper {
+  margin: 0 auto;
 }
 
 .startup {
@@ -374,7 +381,7 @@ nav .inner-nav {
     bottom: 0;
     left: 0;
     content: "";
-    opacity: .5;
+    opacity: .65;
     background: #000;
 }
 .startup .tc {
@@ -399,12 +406,62 @@ nav .inner-nav {
     align-items: center;
 }
 .sample-result {
-    overflow: hidden;
     width: 50%;
     align-self: center;
+    position: relative;
+    padding-bottom: 20px;
 }
 .sample-result.hidden {
     visibility: hidden;
+}
+.sample-result figure {
+    display: inline-block;
+    width: 10%;
+    margin: 0 12px;
+    user-select: none;
+}
+.sample-result figure.drugged {
+    transform: translateY(42px);
+}
+.sample-result div.line {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+}
+.sample-result .undrugged-container{
+    text-align: center;
+}
+.sample-result .undrugged-container h5 {
+    color: #d5f170;
+}
+.sample-result i {
+    display: block;
+    color: #fff;
+    font-size: 4em;
+    margin: 10px 0px;
+}
+.sample-result .drugged-container h5 {
+    user-select: none;
+    text-align: center;
+    margin-bottom: 0;
+    color: #d5f170;
+}
+.sample-result .drugged-container i {
+    margin-top: 60px;
+}
+.sample-result figure figcaption {
+    text-align: center;
+    color: #fff;
+}
+.sample-result figure.drugged figcaption {
+    color: orange;
+}
+.sample-result figure img {
+    width: 100%;
 }
 .sample-text {
    color: #fff;
@@ -419,21 +476,115 @@ nav .inner-nav {
 .sample-text h1 {
    font-size: 2.5rem;
 }
-
+.sample-text h2 {
+   font-size: 2rem;
+   line-height: 2.5rem;
+}
 .sample-text p {
     font-size: 1.25em;
+    color: rgba(255, 255, 255, .7);
 }
 .sample-text button {
+    display: block;
     padding-left: 1em;
+    margin: 0 0 10px 0;
+}
+.sample-text .typed-cursor {
+    opacity: 1;
+    font-weight: 900;
+    -webkit-animation: blink 1s infinite;
+    -moz-animation: blink 1s infinite;
+    -ms-animation: blink 1s infinite;
+    -o-animation: blink 1s infinite;
+    animation: blink 1s infinite;
+    font-size: 2.25rem;
+    vertical-align: bottom;
+}
+.sample-text .sample-type {
+    color: orange;
+}
+.microscope {
+    display: flex;
+    justify-content: center;
+}
+.microscope .microscope-img {
+    float:left;
+}
+.microscope .microscope-img img {
+    width: 42px;
+}
+.microscope .micro-text h5 {
+    margin: 0;
+    color: #d5f170
+}
+.microscope .micro-text p {
+    margin: 0;
+}
+.microscope .micro-text {
+    align-self: center;
+    display: table;
+    color: #fff;
 }
 
-  @media (min-width: 768px) {
-    .sample-text-container {
-      max-width: 720px; } }
-  @media (min-width: 992px) {
-    .sample-text-container {
-      max-width: 920px; } }
-  @media (min-width: 1200px) {
-    .sample-text-container {
-      max-width: 1120px; }
-      }
+@media (min-width: 768px) {
+.e {
+  max-width: 720px; } }
+@media (min-width: 992px) {
+.e {
+  max-width: 920px; } }
+@media (min-width: 1200px) {
+.e {
+  max-width: 1120px; }
+}
+
+
+
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-ms-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-o-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+
+.gps_ring {
+    border: 3px solid #999;
+    -webkit-border-radius: 30px;
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    left:20px;
+    top:214px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.0
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -24px;
+    margin-top: -24px;
+}
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
