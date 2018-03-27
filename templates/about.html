@@ -6,11 +6,19 @@
 
     <h2>About LabelFree</h2>
       <br>
-      <p><i><a href="https://instagram.com/liilii_insta">Hirofumi Kobayashi</a></i></p>
-      <p>Hirofumi has developed the program to analyze cells with label-free images during his PhD studies in the University of Tokyo.</p>
-      <br>
-      <p><i><a href="https://instagram.com/easyandme">Max Xu</a></i></p>
-      <p>Max has been tinkering with the web for more than three years. Currently He is a software enginner at Juniper Networks.</p>
+      <div class="team-container">
+          <div class="team hiro">
+            <img src="{{ url_for('static', filename='img/hiro.png') }}" alt="Hirofumi Kobayashi">
+            <h6><a href="https://instagram.com/liilii_insta">Hirofumi Kobayashi</a></h6>
+            <p>Hirofumi developed the program and trained the model to analyze cells with label-free images during his PhD studies in the University of Tokyo.</p>
+          </div>
+          <br>
+          <div class="team max">
+            <img src="{{ url_for('static', filename='img/max.jpg') }}" alt="Max Xu">
+            <h6><a href="https://instagram.com/easyandme">Max Xu</a></h6>
+            <p>Max built the website for Label free. Currently he is a software engineer at Juniper Networks.</p>
+          </div>
+        </div>
     </div>
   </main>
 {% endblock %}

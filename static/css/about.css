@@ -1,0 +1,30 @@
+nav {
+    background-color: #ee6e73;
+}
+
+@media (min-width: 1200px) {
+
+    .e {
+        max-width: 1200px;
+    }
+}
+
+.container {
+    padding: 40px 0 0 20px;
+}
+
+.team-container {
+
+
+}
+
+.team {
+    width: 50%;
+    max-width: 420px;
+    margin: 10px 0;
+}
+
+.team img {
+    max-width: 150px;
+    border-radius: 32px;
+}

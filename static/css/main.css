@@ -108,7 +108,7 @@ a {
 
 nav {
   background-color: transparent;
-  min-height: 70px;
+  min-height: 80px;
   z-index: 999;
   position: absolute;
   box-shadow: none;
@@ -236,6 +236,7 @@ nav {
 
 .about-section p {
   font-size: 16px;
+  margin: 0;
 }
 
 
@@ -362,11 +363,15 @@ nav .inner-nav li a.btn {
 nav .nav-wrapper {
   margin: 0 auto;
 }
+nav .brand-logo {
+  transition: color 2s;
+  -webkit-transition: color 2s;
+}
 
 .startup {
     height: 110vh;
     position: relative;
-    padding-top: 70px;
+    padding-top: 80px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -463,6 +468,9 @@ nav .nav-wrapper {
 .sample-result figure img {
     width: 100%;
 }
+.sample-result h5, .sample-result figcaption {
+    font-family: fantasy;
+}
 .sample-text {
    color: #fff;
    z-index: 99;
@@ -519,6 +527,7 @@ nav .nav-wrapper {
 }
 .microscope .micro-text p {
     margin: 0;
+    font-family: fantasy;
 }
 .microscope .micro-text {
     align-self: center;
@@ -534,9 +543,16 @@ nav .nav-wrapper {
   max-width: 920px; } }
 @media (min-width: 1200px) {
 .e {
-  max-width: 1120px; }
+  max-width: 1200px; }
 }
 
+@media (max-width: 480px) {
+    nav .inner-nav > a {
+        font-size: 1.5rem;
+        width: 100%;
+        text-align: center;
+    }
+}
 
 
 @keyframes blink{

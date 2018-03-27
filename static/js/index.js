@@ -20,6 +20,7 @@ $(document).ready(function() {
 
 
 
+
     $('select').material_select();
 
 
@@ -42,7 +43,7 @@ $(document).ready(function() {
         setTimeout(function(){
             $('.progress').addClass('hidden');
             $('.gps_ring').hide();
-            $('.sample-result').prepend('<figure style="width:100%"><img src="./static/img/sample_result.png" alt="Sample Result" width="100%"><figcaption>The difference of cellular drug response are demonstrated on the scatter plot.</figcaption></figure>');
+            $('.sample-result').prepend('<figure style="width:100%"><img src="./static/img/sample_result.png" alt="Sample Result" width="100%"><figcaption>The differences of cellular drug response are demonstrated on the scatter plot.</figcaption></figure>');
             $('.sample-result').removeClass('hidden').addClass('animated zoomIn');
         }, 5000)
 

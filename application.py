@@ -29,7 +29,7 @@ def index():
 
 @application.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", PAGE="about")
 
 
 @application.route('/render', methods=['GET', 'POST'])
