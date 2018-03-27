@@ -16,6 +16,9 @@ html, body, h1 {
 body {
   background-color: #fff2ec;
   font-family: 'Roboto', 'Open Sans', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 h2 {
@@ -30,7 +33,7 @@ a {
   display: inline-block;
 }
 
-.container {
+main .container {
   /* width: 1000px; */
   margin: 0 auto;
     height: 100vh;
@@ -39,7 +42,7 @@ a {
     background-color: #FDF2F2;
 }
 
-.container.about-container{
+main .container.about-container{
     background-color: transparent;
 }
 
