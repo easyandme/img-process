@@ -18,6 +18,7 @@ import pandas
 from sklearn.manifold import TSNE
 
 application = Flask(__name__)
+application.config['TEMPLATES_AUTO_RELOAD'] = "TRUE";
 application.logger.addHandler(logging.StreamHandler(sys.stdout))
 application.logger.setLevel(logging.ERROR)
 
@@ -30,6 +31,14 @@ def index():
 @application.route("/about")
 def about():
     return render_template("about.html", PAGE="about")
+
+@application.route("/terms")
+def terms():
+    return render_template("terms.html", PAGE="terms")
+
+@application.route("/privacy")
+def privacy():
+    return render_template("privacy.html", PAGE="privacy")
 
 
 @application.route('/render', methods=['GET', 'POST'])
@@ -52,12 +61,12 @@ def render():
             try:
                 print(len(label_values))
                 plot_url = feature_extract_TSNE(label_values, all_img_list)
-                return render_template('result.html', png_url=plot_url)
+                return render_template('result.html', png_url=plot_url, PAGE='about')
             except Exception as err:
                 if err:
-                    return render_template('warning.html', err=err)
+                    return render_template('warning.html', err=err, PAGE='about')
         else:
-            return render_template('warning.html')
+            return render_template('warning.html', PAGE='about')
 
 
 def feature_extract_TSNE(labels, all_img_list):
