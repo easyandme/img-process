@@ -14,7 +14,7 @@ html, body, h1 {
 }
 
 body {
-  background-color: #fff2ec;
+  background-color: #F4EFD2;
   font-family: 'Roboto', 'Open Sans', sans-serif;
     display: flex;
     min-height: 100vh;
@@ -35,11 +35,13 @@ a {
 
 main .container {
   /* width: 1000px; */
-  margin: 0 auto;
-    height: 100vh;
+    margin: 0 auto;
     min-height: 400px;
+    min-height: 100vh;
     padding: 80px 0 0 20px;
-    background-color: #FDF2F2;
+    background-color: #F4EFD2;
+    overflow: hidden;
+    padding-bottom: 60px;
 }
 
 main .container.about-container{
@@ -224,23 +226,6 @@ nav {
   color: #db4437;
 }
 
-
-/*
- * about
- */
-.about-section {
-  padding-top: 100px
-}
-.about-section h2 {
-  font-size: 30px;
-  margin-bottom: 0;
-  margin-top: 20px;
-}
-
-.about-section p {
-  font-size: 16px;
-  margin: 0;
-}
 
 
 /*
@@ -536,6 +521,19 @@ nav .brand-logo {
     align-self: center;
     display: table;
     color: #fff;
+}
+
+#form-container .row div.input-field {
+    margin-bottom: 20px;
+}
+
+/* footer */
+footer.page-footer {
+    background-color: #3c3333;
+}
+
+.page-footer li {
+    margin: 10px 0;
 }
 
 @media (min-width: 768px) {

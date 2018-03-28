@@ -1,5 +1,5 @@
 nav {
-    background-color: #ee6e73;
+    background-color: #3c3333;
 }
 
 @media (min-width: 1200px) {
@@ -9,8 +9,24 @@ nav {
     }
 }
 
+
+/*
+ * about
+ */
+.about-section {
+  padding-top: 80px
+}
+.about-section h2 {
+  font-size: 30px;
+}
+
+.about-section p {
+  font-size: 16px;
+  margin: 0;
+}
+
+
 .container {
-    padding: 40px 0 0 20px;
 }
 
 .team-container {
@@ -27,4 +43,14 @@ nav {
 .team img {
     max-width: 150px;
     border-radius: 32px;
+}
+
+main.terms-section {
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+
+.terms-container p {
+    font-size: 18px;
+    color: #5D5D5D;
 }

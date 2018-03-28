@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     $('#upload_btn').click(function() {
         $('html, body').animate({
-            scrollTop: $(".custom-upload").offset().top - 80
+            scrollTop: $(".custom-upload").offset().top - 100
         }, 600);
     });
 
