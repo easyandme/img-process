@@ -103,8 +103,10 @@ def feature_extract_TSNE(labels, all_img_list):
 
     intermediate_layer_model.compile('sgd', 'mse')
     # Output the latent layer
+    print("before predict")
     intermediate_output = intermediate_layer_model.predict(
         allimages, batch_size=batch_size, verbose=1)
+    print("after predict")
 
     K.clear_session()
 
