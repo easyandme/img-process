@@ -95,7 +95,7 @@ def feature_extract_TSNE(labels, all_img_list):
     # Load weights
     autoencoder.load_weights('h5/ACbin_33x128fl128GA_weights.h5')
     autoencoder._make_predict_function()
-    batch_size = 20
+    batch_size = 10
 
     # Extract output
     intermediate_layer_model = Model(inputs=autoencoder.input,
