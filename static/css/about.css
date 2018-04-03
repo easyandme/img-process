@@ -14,7 +14,8 @@ nav {
  * about
  */
 .about-section {
-  padding-top: 80px
+  padding-top: 80px;
+  background-color: #F4EFD2;
 }
 .about-section h2 {
   font-size: 30px;
@@ -48,6 +49,7 @@ nav {
 main.terms-section {
     padding-top: 80px;
     padding-bottom: 20px;
+    background-color: #F4EFD2;
 }
 
 .terms-container p {
